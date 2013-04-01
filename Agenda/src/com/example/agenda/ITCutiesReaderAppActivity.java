@@ -145,14 +145,14 @@ public class ITCutiesReaderAppActivity extends Activity {
         protected void onPreExecute()		//display a loading message
         {
             super.onPreExecute();
-            load=ProgressDialog.show(ITCutiesReaderAppActivity.this, "Please wait", "Loading..", true);
-            load.setCancelable(true);
+            //load=ProgressDialog.show(ITCutiesReaderAppActivity.this, "Please wait", "Loading..", true);
+            //load.setCancelable(true);
         }
          
         @Override
         protected void onPostExecute(List<RssItem> result) {
         	//once the load has finished
-            load.dismiss();
+            //load.dismiss();
             
             Set<String> set;
             SharedPreferences.Editor prefEditor;
