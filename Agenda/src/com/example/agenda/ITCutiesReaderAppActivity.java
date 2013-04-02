@@ -188,3 +188,6 @@ public class ITCutiesReaderAppActivity extends Activity {
         }
     }  
 }
+
+
+//fuck you anyway
