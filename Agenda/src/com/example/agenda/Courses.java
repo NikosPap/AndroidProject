@@ -48,7 +48,7 @@ public class Courses extends Activity {
 class DataBaseHelper extends SQLiteOpenHelper{
 	 
     //The Android's default system path of your application database.
-    private static String DB_PATH = "/data/data/com.example.agenda/databases/";
+    private static String DB_PATH;
  
     private static String DB_NAME = "MySQLiteDB";
  
@@ -65,6 +65,8 @@ class DataBaseHelper extends SQLiteOpenHelper{
  
     	super(context, DB_NAME, null, 1);
         this.myContext = context;
+        DB_PATH = myContext.getFilesDir().getPath();
+        DB_PATH+="data/com.example.agenda/databases/";
     }	
  
   /**
