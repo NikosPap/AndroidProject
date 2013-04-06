@@ -14,7 +14,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DataBaseHelper extends SQLiteOpenHelper{
 	 
     //The Android's default system path of your application database.
-    private static String DB_PATH;
+    private static String DB_PATH = "/data/data/com.example.agenda/databases/";
  
     private static String DB_NAME = "MySQLiteDB";
  
@@ -31,8 +31,6 @@ public class DataBaseHelper extends SQLiteOpenHelper{
  
     	super(context, DB_NAME, null, 1);
         this.myContext = context;
-        DB_PATH = myContext.getFilesDir().getPath();
-        DB_PATH+="data/com.example.agenda/databases/";
     }	
  
   /**
@@ -41,11 +39,9 @@ public class DataBaseHelper extends SQLiteOpenHelper{
     public void createDataBase() throws IOException{
  
     	boolean dbExist = checkDataBase();
- 
     	if(dbExist){
     		//do nothing - database already exist
     	}else{
- 
     		//By calling this method and empty database will be created into the default system path
                //of our application so we are gonna be able to overwrite that database with our database.
         	this.getReadableDatabase();
@@ -76,15 +72,11 @@ public class DataBaseHelper extends SQLiteOpenHelper{
     		checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
  
     	}catch(SQLiteException e){
- 
-    		//database does't exist yet.
- 
+    		//database does't exist yet. 
     	}
  
     	if(checkDB != null){
- 
-    		checkDB.close();
- 
+    		checkDB.close(); 
     	}
  
     	return checkDB != null ? true : false;
@@ -147,8 +139,6 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
  
 	}
- 
-        // Add your public helper methods to access and get content from the database.
-       // You could return cursors by doing "return myDataBase.query(....)" so it'd be easy
-       // to you to create adapters for your views.
+	
 }
+
