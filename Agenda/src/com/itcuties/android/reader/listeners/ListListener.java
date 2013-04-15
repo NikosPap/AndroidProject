@@ -22,8 +22,8 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.example.agenda.ITCutiesReaderAppActivity;
 import com.example.agenda.R;
+import com.example.agendaMain.ITCutiesReaderAppActivity;
 import com.itcuties.android.reader.data.RssItem;
 
 /**

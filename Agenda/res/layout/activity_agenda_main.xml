@@ -15,8 +15,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_alignRight="@+id/button2"
-        android:text="@string/courses"
-        android:onClick="showCourses" />
+        android:text="@string/account"
+        android:onClick="showScheduleCourses" />
 
     <Button
         android:id="@+id/button2"

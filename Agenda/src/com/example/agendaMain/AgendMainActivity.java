@@ -1,4 +1,7 @@
-package com.example.agenda;
+package com.example.agendaMain;
+
+import com.example.agenda.R;
+import com.example.agendaMyAcount.AccountMainActivity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -22,9 +25,9 @@ public class AgendMainActivity extends Activity {
 		return true;
 	}
 	
-	/*Called when the user clicks the "Course" button */
-	public void showCourses(View view){
-		Intent intent = new Intent(this, Courses.class);
+	/*Called when the user clicks the "My Account" button */
+	public void showScheduleCourses(View view){
+		Intent intent = new Intent(this, AccountMainActivity.class);
 		startActivity(intent);
 		
 	}

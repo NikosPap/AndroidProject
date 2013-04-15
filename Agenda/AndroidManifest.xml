@@ -16,7 +16,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.example.agenda.AgendMainActivity"
+            android:name="com.example.agendaMain.AgendMainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,28 +25,44 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.agenda.ITCutiesReaderAppActivity"
+            android:name="com.example.agendaMain.ITCutiesReaderAppActivity"
             android:label="@string/title_activity_display_news" >
         </activity>
         <activity
-            android:name="com.example.agenda.Courses"
+            android:name="com.example.agendaMyAcount.Courses"
             android:label="@string/title_activity_display_courses" >
         </activity>
         <activity
-            android:name="com.example.agenda.Schedule"
+            android:name="com.example.agendaMain.Schedule"
             android:label="@string/title_activity_display_schedule" >
         </activity>
         <activity
-            android:name="com.example.agenda.News"
+            android:name="com.example.agendaMain.News"
             android:label="@string/title_activity_display_news" >
         </activity>
         <activity
-            android:name="com.example.agenda.Settings"
+            android:name="com.example.agendaMain.Settings"
             android:label="@string/title_activity_display_settings" >
         </activity>
         <activity
             android:name="com.newsfeed.viewer.NewsFeedDetails"
             android:label="@string/title_activity_news_feed_details" >
+        </activity>
+        <activity
+            android:name="com.example.agendaMyAcount.ScheduleCourses"
+            android:label="@string/title_activity_schedule_courses" >
+        </activity>
+        <activity
+            android:name="com.example.agendaMyAcount.AccountMainActivity"
+            android:label="@string/title_activity_account" >
+        </activity>
+        <activity
+            android:name="com.example.agendaMyAcount.MySchedule"
+            android:label="@string/title_activity_my_schedule" >
+        </activity>
+        <activity
+            android:name="com.example.agendaMyAcount.GeneralInfos"
+            android:label="@string/title_activity_general_infos" >
         </activity>
     </application>
 

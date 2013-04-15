@@ -1,9 +1,10 @@
-package com.example.agenda;
+package com.example.agendaMyAcount;
 
 
 
 import java.io.IOException;
 
+import com.example.agenda.R;
 import com.itcuties.android.reader.data.DataBaseHelper;
 
 import android.os.Bundle;

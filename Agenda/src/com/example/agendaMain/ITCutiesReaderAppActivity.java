@@ -1,4 +1,4 @@
-package com.example.agenda;
+package com.example.agendaMain;
 
 import java.util.HashSet;
 import java.util.List;
@@ -21,6 +21,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.agenda.R;
 import com.itcuties.android.reader.data.RssItem;
 import com.itcuties.android.reader.listeners.ListListener;
 import com.itcuties.android.reader.util.RssReader;
