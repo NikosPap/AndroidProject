@@ -10,9 +10,9 @@ import com.itcuties.android.reader.data.DataBaseHelper;
 import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-//import android.database.Cursor;
+import android.database.Cursor;
 import android.database.SQLException;
-//import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteDatabase;
 import android.view.Menu;
 
 
@@ -37,11 +37,11 @@ public class Courses extends Activity {
         }catch(SQLException sqle){
         	throw sqle;
         }
-/*        
+        
         SQLiteDatabase db = myDbHelper.getReadableDatabase();
         
         String[] projection = {"Code","Name","Description"};
-        String selection = "Code Name Description";		// How you want the results sorted in the resulting Cursor
+        //String selection = "Code Name Description";		// How you want the results sorted in the resulting Cursor
 
         Cursor c = db.query(
         		"Subjects",  // The table to query
@@ -57,7 +57,7 @@ public class Courses extends Activity {
 			System.out.println(c.getString(0)+" "+c.getString(1)+" "+c.getString(2)+"\n");
 		}
 		myDbHelper.close();
-*/
+
 
 	}
 
