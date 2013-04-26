@@ -24,5 +24,9 @@
     <string name="myCourses">My courses</string>
     <string name="title_activity_my_schedule">My Schedule</string>
     <string name="title_activity_general_infos">General Infos</string>
+    <string-array name="pref_default_entries"/>
+    <string-array name="pref_default_values"/>
+    <string name="TargetSummary">My Target</string>
+    <string name="TargetTitle">My title</string>
 
 </resources>
