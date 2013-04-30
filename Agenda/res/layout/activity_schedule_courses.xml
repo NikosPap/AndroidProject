@@ -1,56 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
 
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory
-        android:id="@+id/multilist"
-        android:title="@string/TargetSummary"
-        android:key="first_category">
-
-</PreferenceCategory>
-
-</PreferenceScreen>
-    
-        
-<!--
-
- <MultiSelectListPreference
-    	android:id="@+id/multilist"
-	    android:defaultValue=""
-    	android:enabled="true"
-    	android:persistent="true"  
-		android:entries="@array/pref_default_entries"
-    	android:entryValues="@array/pref_default_values"
-    	android:key="TargetList"
-    	android:summary="@string/TargetSummary"
-    	android:title="@string/TargetTitle"></MultiSelectListPreference>
-
-	<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:android1="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".ScheduleCourses" >
-
-    <TextView
-        android1:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/under_construction" />
-
-
-</RelativeLayout>
-	 <MultiSelectListPreference
-    	android:id="@+id/multilist"
-	    android:defaultValue=""
-    	android:enabled="true"
-    	android:persistent="true"  
-		android:entries="@array/pref_default_entries"
-    	android:entryValues="@array/pref_default_values"
-    	android:key="TargetList"
-    	android:summary="@string/TargetSummary"
-    	android:title="@string/TargetTitle"
--->
+ <ExpandableListView
+     android:id="@+id/android:list"
+     android:layout_width="fill_parent"
+     android:layout_height="fill_parent"
+     android:drawSelectorOnTop="true" />
+ 
+     <TextView android:id="@+id/android:empty"
+               android:layout_width="fill_parent"
+               android:layout_height="fill_parent"
+               android:text="No items"/>
+</LinearLayout>

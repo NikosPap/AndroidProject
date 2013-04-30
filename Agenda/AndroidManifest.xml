@@ -28,42 +28,23 @@
             android:name="com.example.agendaMain.ITCutiesReaderAppActivity"
             android:label="@string/title_activity_display_news" >
         </activity>
-        <activity
-            android:name="com.example.agendaMyAcount.Courses"
+		<activity
+            android:name="com.example.courses.Courses"
             android:label="@string/title_activity_display_courses" >
         </activity>
         <activity
-            android:name="com.example.agendaMain.Schedule"
+            android:name="com.example.agendaMain.Profile"
+            android:label="@string/title_activity_display_profile" >
+        </activity>
+        <activity
+            android:name="com.example.scedule.Schedule"
             android:label="@string/title_activity_display_schedule" >
         </activity>
         <activity
-            android:name="com.example.agendaMain.News"
-            android:label="@string/title_activity_display_news" >
+            android:name="com.example.agenda.MainActivity"
+            android:label="@string/title_activity_main" >
         </activity>
-        <activity
-            android:name="com.example.agendaMain.Settings"
-            android:label="@string/title_activity_display_settings" >
-        </activity>
-        <activity
-            android:name="com.newsfeed.viewer.NewsFeedDetails"
-            android:label="@string/title_activity_news_feed_details" >
-        </activity>
-        <activity
-            android:name="com.example.agendaMyAcount.ScheduleCourses"
-            android:label="@string/title_activity_schedule_courses" >
-        </activity>
-        <activity
-            android:name="com.example.agendaMyAcount.AccountMainActivity"
-            android:label="@string/title_activity_account" >
-        </activity>
-        <activity
-            android:name="com.example.agendaMyAcount.MySchedule"
-            android:label="@string/title_activity_my_schedule" >
-        </activity>
-        <activity
-            android:name="com.example.agendaMyAcount.GeneralInfos"
-            android:label="@string/title_activity_general_infos" >
-        </activity>
+
     </application>
 
 </manifest>

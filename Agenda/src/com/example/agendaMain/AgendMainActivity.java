@@ -1,7 +1,9 @@
 package com.example.agendaMain;
 
 import com.example.agenda.R;
-import com.example.agendaMyAcount.AccountMainActivity;
+//import com.example.courses.Courses;
+import com.example.courses.Courses;
+import com.example.scedule.Schedule;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -25,12 +27,20 @@ public class AgendMainActivity extends Activity {
 		return true;
 	}
 	
-	/*Called when the user clicks the "My Account" button */
-	public void showScheduleCourses(View view){
-		Intent intent = new Intent(this, AccountMainActivity.class);
+	/*Called when the user clicks the "Courses" button 
+	public void showCourses(View view){
+		Intent intent = new Intent(this, Courses.class);
 		startActivity(intent);
 		
 	}
+	*/
+	/*Called when the user clicks the "Courses" button */
+	public void showCourses(View view){
+		//Intent intent = new Intent(this, Courses.class);
+		Intent intent = new Intent(this, Courses.class);
+		startActivity(intent);
+	}
+	
 	
 	/*Called when the user clicks the "Schedule" button */
 	public void showSchedule(View view){
@@ -44,9 +54,9 @@ public class AgendMainActivity extends Activity {
 		startActivity(intent);
 	}
 	
-	/*Called when the user clicks the "Settings" button */
-	public void showSettings(View view){
-		Intent intent = new Intent(this, Settings.class);
+	/*Called when the user clicks the "Profile" button */
+	public void showProfile(View view){
+		Intent intent = new Intent(this, Profile.class);
 		startActivity(intent);
 	}
 

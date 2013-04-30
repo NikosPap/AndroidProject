@@ -5,16 +5,18 @@ import java.util.List;
 import java.util.Set;
 
 import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.graphics.Point;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -38,7 +40,7 @@ public class ITCutiesReaderAppActivity extends Activity {
     
     // A reference to the local object
     private ITCutiesReaderAppActivity local;
-    
+    private LayoutInflater vi;
     //Hold screens size
     private Point scrSize;
     
@@ -56,6 +58,14 @@ public class ITCutiesReaderAppActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //set back button
+        ActionBar bar = getActionBar();
+        bar.setDisplayHomeAsUpEnabled(true);
+        TextView bv = new TextView(ITCutiesReaderAppActivity.this);
+        bv.setTextSize(18);
+        bar.setCustomView(bv);
+        
+        //getActionBar().setDisplayShowTitleEnabled(false);
         // Set view
         setContentView(R.layout.activity_display_news);
 
@@ -74,6 +84,13 @@ public class ITCutiesReaderAppActivity extends Activity {
         Log.d("ITCRssReader", Thread.currentThread().getName());
     }
     
+ 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem)
+    {       
+        startActivity(new Intent(ITCutiesReaderAppActivity.this,AgendMainActivity.class)); 
+        return true;
+    }
     public Point getScreenSize(){
     	return this.scrSize;
     }
@@ -99,19 +116,19 @@ public class ITCutiesReaderAppActivity extends Activity {
     	public View getView(final int position, View convertView, ViewGroup parent) {
     	    View v = convertView;
     	    if (v == null) {
-    	        LayoutInflater vi = (LayoutInflater)c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    	        vi = (LayoutInflater)c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     	        v = vi.inflate(id, null);
     	    }
+    	    
 
     	    final RssItem o = items.get(position);
     	    if (o != null) {
     	    	TextView tx=(TextView)v;
-    	    	tx.setTextSize(12);
+    	    	tx.setTextSize(18);
     	    	tx.setText(o.getTitle());
-    	    	tx.setTextSize(15);
     	    	if(!mySet.isEmpty()){			//check if title exist in the Set
     	    		if (mySet.contains(o.getTitle())) {
-    	    			v.setBackgroundColor(Color.GRAY);		//change color if exists
+    	    			v.setAlpha(0.6f);		//change color if exists
     	    		}
     	    	}		
     	    }
@@ -146,14 +163,14 @@ public class ITCutiesReaderAppActivity extends Activity {
         protected void onPreExecute()		//display a loading message
         {
             super.onPreExecute();
-            //load=ProgressDialog.show(ITCutiesReaderAppActivity.this, "Please wait", "Loading..", true);
-            //load.setCancelable(true);
+            load=ProgressDialog.show(ITCutiesReaderAppActivity.this, "Please wait", "Loading..", true);
+            load.setCancelable(true);
         }
          
         @Override
         protected void onPostExecute(List<RssItem> result) {
         	//once the load has finished
-            //load.dismiss();
+            load.dismiss();
             
             Set<String> set;
             SharedPreferences.Editor prefEditor;

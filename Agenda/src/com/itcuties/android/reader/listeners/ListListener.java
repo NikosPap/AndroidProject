@@ -6,24 +6,21 @@ import java.util.Set;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.Point;
+import android.text.SpannableString;
+import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
-import android.view.Gravity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.example.agenda.R;
-import com.example.agendaMain.ITCutiesReaderAppActivity;
 import com.itcuties.android.reader.data.RssItem;
 
 /**
@@ -41,6 +38,7 @@ public class ListListener implements OnItemClickListener{
 	// Calling activity reference
 	Activity activity;
 	
+	
 	public ListListener(List<RssItem> aListItems, Activity anActivity) {
 		listItems = aListItems;
 		activity  = anActivity;
@@ -50,58 +48,57 @@ public class ListListener implements OnItemClickListener{
 	 * Start a browser with url from the rss item.
 	 */
 	public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
+		
+		view.setAlpha(0.6f);
 		SharedPreferences sharedPref = activity.getSharedPreferences("MyPrefsFile", 0);
 		Set<String> set=sharedPref.getStringSet("Titles_Clicked", null);
 		
-		String dp="Update at:\n" + listItems.get(pos).getPabDate()+"\n\n\n" + listItems.get(pos).getDescription()+ " (πιέστε τον παρακάτω σύνδεσμο):\n";
+		///////splitting string/////
+		String[] sp;
+		String pubdate;
+		sp=listItems.get(pos).getPabDate().split(" ");
+		Log.i("LISTLISTENER", sp[0]);
+		Log.i("LISTLISTENER", sp[1]);
+		pubdate = sp[0]+sp[1]+" "+sp[2]+" "+sp[3]+" "+sp[4];
+		
+		String dp=pubdate+"\n\n" + listItems.get(pos).getDescription()+":\n";
 		String l=listItems.get(pos).getLink()+ "\n";
 		
-		//create pop up window in order to display details of a title
-		final PopupWindow popup = new PopupWindow(activity);
+
 		
 		//retrieve the layout (existed layout in xml, which is ScrollView)
 		LinearLayout L = (LinearLayout)activity.findViewById(R.id.popupLinearLayout);
 		LayoutInflater lf=(LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View layout=lf.inflate(R.layout.news_popup, L);
 
-		//If user click a title for first time, we save it in the Set
+		//Keep preferences
 		if(!set.contains(listItems.get(pos).getTitle())){
-        	view.setBackgroundColor(Color.GRAY);
+        	view.setAlpha(0.6f);
         	set.add(listItems.get(pos).getTitle());
         	SharedPreferences.Editor prefEditor = sharedPref.edit();
     		prefEditor.putStringSet("Titles_Clicked", set);
     		prefEditor.commit();
         }
         
-		//create 2 textview to display information
-		TextView textView=(TextView)layout.findViewById(R.id.textView1);
-		textView.setTextSize(15);
-		textView.setText(dp);
+		String yo;
+		yo = "Ημερομηνία:\n" + dp + "\n" + l;
 		
-		TextView textView2=(TextView)layout.findViewById(R.id.textView2);
-		textView2.setAutoLinkMask(Linkify.WEB_URLS);		//make link clickable (connect to Internet)
-		textView2.setTextSize(15);
-		textView2.setText(l);
+		//Hyperlinking
+		final TextView ms = new TextView(activity);
+		ms.setTextSize(18);
+		final SpannableString s = new SpannableString(yo);
+		Linkify.addLinks(s, Linkify.WEB_URLS);
+		ms.setText(s);
+		ms.setMovementMethod(LinkMovementMethod.getInstance());
+		ms.setPadding(4, 2, 4, 2);
 		
-		Button b=(Button)layout.findViewById(R.id.close);
-		popup.setContentView(layout);
+		AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+    	builder
+    	.setTitle("Info")
+    	.setView(ms)
+    	.setNeutralButton("OK", null)
+    	.show();
 
-		//Set size of pop up according screen dimensions (pop up is scrollable)
-		Point scrSize=((ITCutiesReaderAppActivity) activity).getScreenSize();
-		popup.setWidth(scrSize.x-50);
-		popup.setHeight(scrSize.y-250);
-		//popup.setWindowLayoutMode(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-		popup.setFocusable(true);
-		
-		 // Displaying the popup at the specified location.
-		 popup.showAtLocation(layout, Gravity.CENTER, 0, 0);
-		 
-		 b.setOnClickListener(new OnClickListener() {
-
-		     @Override
-		     public void onClick(View v) {
-		    	 popup.dismiss();
-		     }
-		 });
 	}
+	
 }
