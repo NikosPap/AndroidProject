@@ -57,8 +57,6 @@ public class ListListener implements OnItemClickListener{
 		String[] sp;
 		String pubdate;
 		sp=listItems.get(pos).getPabDate().split(" ");
-		Log.i("LISTLISTENER", sp[0]);
-		Log.i("LISTLISTENER", sp[1]);
 		pubdate = sp[0]+sp[1]+" "+sp[2]+" "+sp[3]+" "+sp[4];
 		
 		String dp=pubdate+"\n\n" + listItems.get(pos).getDescription()+":\n";
@@ -67,9 +65,9 @@ public class ListListener implements OnItemClickListener{
 
 		
 		//retrieve the layout (existed layout in xml, which is ScrollView)
-		LinearLayout L = (LinearLayout)activity.findViewById(R.id.popupLinearLayout);
-		LayoutInflater lf=(LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		View layout=lf.inflate(R.layout.news_popup, L);
+		//LinearLayout L = (LinearLayout)activity.findViewById(R.id.popupLinearLayout);
+		//LayoutInflater lf=(LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		//View layout=lf.inflate(R.layout.news_popup, L);
 
 		//Keep preferences
 		if(!set.contains(listItems.get(pos).getTitle())){
