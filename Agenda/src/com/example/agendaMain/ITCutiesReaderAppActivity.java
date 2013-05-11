@@ -64,7 +64,7 @@ public class ITCutiesReaderAppActivity extends Activity {
         TextView bv = new TextView(ITCutiesReaderAppActivity.this);
         bv.setTextSize(18);
         bar.setCustomView(bv);
-        
+        bar.setBackgroundDrawable(getResources().getDrawable(R.drawable.bd1));
         //getActionBar().setDisplayShowTitleEnabled(false);
         // Set view
         setContentView(R.layout.activity_display_news);
@@ -87,8 +87,9 @@ public class ITCutiesReaderAppActivity extends Activity {
  
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem)
-    {       
-        startActivity(new Intent(ITCutiesReaderAppActivity.this,AgendMainActivity.class)); 
+    {   
+        startActivity(new Intent(this,AgendMainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                | Intent.FLAG_ACTIVITY_SINGLE_TOP));
         return true;
     }
     public Point getScreenSize(){
@@ -117,15 +118,23 @@ public class ITCutiesReaderAppActivity extends Activity {
     	    View v = convertView;
     	    if (v == null) {
     	        vi = (LayoutInflater)c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-    	        v = vi.inflate(id, null);
+    	        v = vi.inflate(R.layout.list_row, null);
+    	        
+    	        
     	    }
     	    
-
+    	    TextView tit = (TextView)v.findViewById(R.id.title);
+	        TextView dat = (TextView)v.findViewById(R.id.date);
+	        String[] sp;
     	    final RssItem o = items.get(position);
+    	    sp = o.getPabDate().split(" ");
+    	    
     	    if (o != null) {
-    	    	TextView tx=(TextView)v;
+    	    	/*TextView tx=(TextView)v;
     	    	tx.setTextSize(18);
-    	    	tx.setText(o.getTitle());
+    	    	tx.setText(o.getTitle());*/
+    	    	tit.setText(o.getTitle());
+    	    	dat.setText(sp[0]+sp[1]);
     	    	if(!mySet.isEmpty()){			//check if title exist in the Set
     	    		if (mySet.contains(o.getTitle())) {
     	    			v.setAlpha(0.6f);		//change color if exists

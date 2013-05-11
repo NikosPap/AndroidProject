@@ -9,44 +9,37 @@
     tools:context=".AgendMainActivity" >
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button2"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="18dp"
-        android:onClick="showProfile"
-        android:text="@string/profile" />
+        android:background="@drawable/book"
+        android:onClick="showCourses" />
 
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/button4"
         android:layout_below="@+id/button1"
-        android:layout_marginTop="37dp"
-        android:onClick="showSchedule"
-        android:text="@string/schedule" />
+        android:layout_marginTop="20dp"
+        android:background="@drawable/callendar"
+        android:onClick="showSchedule" />
 
     <Button
         android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/button2"
-        android:layout_alignBottom="@+id/button2"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="22dp"
-        android:onClick="showNews"
-        android:text="@string/newsFeed" />
+        android:layout_toRightOf="@+id/button1"
+        android:background="@drawable/rss"
+        android:onClick="showNews" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/button4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/button3"
-        android:layout_marginTop="62dp"
-        android:onClick="showCourses"
-        android:text="@string/courses" />
+        android:layout_alignBaseline="@+id/button2"
+        android:layout_alignBottom="@+id/button2"
+        android:layout_alignLeft="@+id/button3"
+        android:background="@drawable/profile"
+        android:onClick="showProfile" />
 
 </RelativeLayout>
