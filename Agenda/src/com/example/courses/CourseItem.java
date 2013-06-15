@@ -3,6 +3,7 @@ package com.example.courses;
 public class CourseItem {
 	private String name = "";
 	private String desc = "";
+	private Double grade = -1.0;
 	private boolean checked = false;
 	private boolean changed = false;
 
@@ -21,10 +22,25 @@ public class CourseItem {
 		this.name = name;
 	}
 
+	public CourseItem(String name, boolean checked, String desc, Double gr) {
+		this.name = name;
+		this.checked = checked;
+		this.desc = desc;
+		this.grade = gr;
+	}
+	
 	public CourseItem(String name, boolean checked, String desc) {
 		this.name = name;
 		this.checked = checked;
 		this.desc = desc;
+	}
+
+	public Double getGrade() {
+		return grade;
+	}
+
+	public void setGrade(Double grade) {
+		this.grade = grade;
 	}
 
 	public String getDesc(){

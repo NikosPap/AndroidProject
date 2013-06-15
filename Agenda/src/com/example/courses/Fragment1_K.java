@@ -31,7 +31,7 @@ public class Fragment1_K extends ListFragment{
 	
 	@SuppressLint("NewApi")
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {		
-		String select = "SELECT Name, Description FROM Subjects WHERE  Code LIKE 'Ê%' AND Selected=1";
+		String select = "SELECT Name, Description, Grade FROM Subjects WHERE  Code LIKE 'Ê%' AND Selected=1";
 		String select2 = "SELECT Name, Description FROM Subjects WHERE  Code LIKE 'Ê%' AND Selected=0";
 		
 		subjects = new ArrayList<CourseItem>();
@@ -44,7 +44,7 @@ public class Fragment1_K extends ListFragment{
 		Cursor cursor = db.rawQuery(select, null);
 		if(cursor.moveToFirst()){
 			do{
-				subjects.add(new CourseItem(cursor.getString(0),true,cursor.getString(1)));
+				subjects.add(new CourseItem(cursor.getString(0),true,cursor.getString(1),cursor.getDouble(2)));
 			}while(cursor.moveToNext());
 		}
 		cursor.close();
@@ -94,7 +94,7 @@ public class Fragment1_K extends ListFragment{
 				if(s.isChecked())
 					sel=1;
 				s.setChanged(false);
-				String update = "UPDATE Subjects SET Selected=" + sel + " WHERE Name=" + "\"" + s.getName() +"\"" ;
+				String update = "UPDATE Subjects SET Selected=" + sel + ", Grade="+ s.getGrade() +" WHERE Name=" + "\"" + s.getName() +"\"" ;
 				db.execSQL(update);
 			}
 		}

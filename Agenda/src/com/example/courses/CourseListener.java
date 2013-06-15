@@ -4,6 +4,7 @@ import java.util.List;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.view.View;
 import android.widget.AdapterView;
@@ -51,19 +52,26 @@ public class CourseListener implements OnItemClickListener{
 		rl.addRule(RelativeLayout.CENTER_HORIZONTAL);
 	    rl.setMargins(0, 5, 0, 0);
 		sep.setLayoutParams(rl);
-		sep.setBackgroundColor(Color.BLUE);
+		sep.setBackgroundColor(Color.DKGRAY);
 		rel.addView(sep);
 		
 		grade_text = new TextView(activity);
 		grade_text.setId(View.generateViewId());
+		RelativeLayout.LayoutParams rlp2 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
+		rlp2.addRule(RelativeLayout.BELOW,sep.getId());
+		//rlp2.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+		grade_text.setLayoutParams(rlp2);
 		if(listItems.get(pos).isChecked()){
-			grade_text.setTextSize(17);
+			grade_text.setTextSize(18);
 			grade_text.setText('\n'+"Grade:");
         	grade_input = new EditText(activity);
-        	grade_input.setTextSize(17);
+        	grade_input.setTextSize(18);
         	//grade_input.setBackgroundColor(Color.LTGRAY);
+        	if(listItems.get(pos).getGrade()!=-1)
+        		grade_input.setText(String.valueOf(listItems.get(pos).getGrade()));
         	RelativeLayout.LayoutParams rlp1 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
-        	rlp1.addRule(RelativeLayout.BELOW,sep.getId());
+        	rlp1.addRule(RelativeLayout.ALIGN_BOTTOM, grade_text.getId());
+        	//rlp1.addRule(RelativeLayout.BELOW,sep.getId());
         	rlp1.addRule(RelativeLayout.RIGHT_OF,grade_text.getId());
         	//rlp1.addRule(RelativeLayout.ALIGN_PARENT_TOP);
         	//rlp1.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
@@ -73,20 +81,23 @@ public class CourseListener implements OnItemClickListener{
         else{
         	grade_text.setTextSize(14);
         	grade_text.setText('\n'+"If you want to set grade, check the course in the list first"+ '\n');
-        	grade_text.setTextColor(Color.CYAN);
+        	grade_text.setTextColor(Color.RED);
         }
-		RelativeLayout.LayoutParams rlp2 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
-		rlp2.addRule(RelativeLayout.BELOW,sep.getId());
-		//rlp2.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-		grade_text.setLayoutParams(rlp2);
 		rel.addView(grade_text);
         scrollv.addView(rel);
 		
-		AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-    	builder
+		AlertDialog alert = new AlertDialog.Builder(activity)
     	.setTitle(listItems.get(pos).getName())
     	.setView(scrollv)
-    	.setNeutralButton("OK",new DialogListener(listItems,activity,grade_input))
-    	.show();
+    	.setNeutralButton(android.R.string.ok,new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface d, int which) {
+                //Do nothing here. We override the onclick
+            }
+        })
+    	.create();
+		
+    	alert.setOnShowListener(new DialogListener(listItems.get(pos),activity,grade_input,alert));
+    	alert.show();
 	}
 }

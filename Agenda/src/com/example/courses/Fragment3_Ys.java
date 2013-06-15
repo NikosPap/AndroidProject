@@ -30,7 +30,7 @@ public class Fragment3_Ys extends ListFragment {
 	
 	@SuppressLint("NewApi")
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {		
-		String select = "SELECT Ys, Name, Description FROM Subjects WHERE  Code LIKE 'ус%' AND Selected=1 ORDER BY Ys";
+		String select = "SELECT Ys, Name, Description, Grade FROM Subjects WHERE  Code LIKE 'ус%' AND Selected=1 ORDER BY Ys";
 		String select2 = "SELECT Ys, Name, Description FROM Subjects WHERE  Code LIKE 'ус%' AND Selected=0 ORDER BY Ys";
 		
 		subjects = new ArrayList<CourseItem>();
@@ -48,7 +48,7 @@ public class Fragment3_Ys extends ListFragment {
 					name += " (B)";
 				else
 					name += " (E)";
-				subjects.add(new CourseItem(name,true,cursor.getString(2)));
+				subjects.add(new CourseItem(name,true,cursor.getString(2),cursor.getDouble(3)));
 			}while(cursor.moveToNext());
 		}
 		cursor.close();
@@ -104,7 +104,7 @@ public class Fragment3_Ys extends ListFragment {
 				if(s.isChecked())
 					sel=1;
 				s.setChanged(false);
-				String update = "UPDATE Subjects SET Selected=" + sel + " WHERE Name=" + "\"" + name[0] +"\"" ;
+				String update = "UPDATE Subjects SET Selected=" + sel + ", Grade="+ s.getGrade() + " WHERE Name=" + "\"" + name[0] +"\"" ;
 				db.execSQL(update);
 			}
 		}
