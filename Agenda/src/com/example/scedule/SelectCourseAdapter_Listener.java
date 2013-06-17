@@ -1,10 +1,14 @@
-package com.example.courses;
+package com.example.scedule;
 
 import java.util.List;
 
 import com.example.agenda.R;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnMultiChoiceClickListener;
+import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +16,10 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-public class CourseAdapter extends ArrayAdapter<CourseItem>{
+public class SelectCourseAdapter_Listener extends ArrayAdapter<ScheduleCourseItem> {
 	private LayoutInflater inflater;
-	private List<CourseItem> clist;
+	private List<ScheduleCourseItem> clist;
+	private OnMultiChoiceClickListener SelectListener;
 	
 
 	private static class SelectViewHolder {
@@ -37,17 +42,35 @@ public class CourseAdapter extends ArrayAdapter<CourseItem>{
 
 	}
 	
-	public CourseAdapter(Context context, List<CourseItem> CourseList) {
+	public SelectCourseAdapter_Listener(Context context, List<ScheduleCourseItem> CourseList) {
 		super(context, R.layout.course_row, R.id.rowTextView, CourseList);
 		// Cache the LayoutInflate to avoid asking for a new one each time.
 		clist = CourseList;
 		inflater = LayoutInflater.from(context);
+		SelectListener = new OnMultiChoiceClickListener(){
+			@Override
+			public void onClick(DialogInterface arg0, int pos, boolean arg2) {
+				CheckBox checkBox = clist.get(pos).getCBView();
+Log.i("SELECTCOURSE","OnClick");				
+				//SelectViewHolder viewHolder = (SelectViewHolder) view.getTag();
+				//checkBox = viewHolder.getCheckBox();
+				if(!checkBox.isChecked())
+					checkBox.setChecked(true);
+				else
+					checkBox.setChecked(false);
+			}
+
+		};
+	}
+
+	public OnMultiChoiceClickListener getSelectListener() {
+		return SelectListener;
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// Planet to display
-		CourseItem course = (CourseItem) this.getItem(position);
+		ScheduleCourseItem course = (ScheduleCourseItem) this.getItem(position);
 
 		// The child views in each row.
 		CheckBox checkBox;
@@ -59,7 +82,10 @@ public class CourseAdapter extends ArrayAdapter<CourseItem>{
 
 			// Find the child views.
 			textView = (TextView) convertView.findViewById(R.id.rowTextView);
+			textView.setTextColor(Color.BLACK);
 			checkBox = (CheckBox) convertView.findViewById(R.id.CheckBox01);
+			checkBox.setClickable(false);
+			
 			
 			// Optimization: Tag the row with it's child views, so we don't
 			// have to
@@ -69,36 +95,6 @@ public class CourseAdapter extends ArrayAdapter<CourseItem>{
 			if(course.isChecked()){
 				checkBox.setChecked(true);
 			}
-			checkBox.setOnClickListener(new View.OnClickListener() {
-				public void onClick(View v) {
-					CheckBox cb = (CheckBox) v;
-					CourseItem course = (CourseItem) cb.getTag();
-					course.setChanged(true);
-					if(!course.isChecked()){
-						//for(int i=clist.indexOf(course);i>0;i--){
-						//	clist.remove(i);
-						//	clist.add(i, clist.get(i-1));
-						//}
-						//clist.remove(0);
-						int pos=0;
-						while(clist.get(pos).isChecked())
-							pos++;
-						clist.remove(course);
-						clist.add(pos, course);
-						course.setChecked(cb.isChecked());						
-						notifyDataSetChanged();
-					}
-					else{
-						int pos = clist.indexOf(course);
-						course.setChecked(cb.isChecked());
-						clist.remove(course);
-						while(clist.get(pos).isChecked())
-								pos++;
-						clist.add(pos, course);
-						notifyDataSetChanged();
-					}
-				}
-			});
 		}
 		// Reuse existing row view
 		else {
@@ -114,6 +110,8 @@ public class CourseAdapter extends ArrayAdapter<CourseItem>{
 		checkBox.setTag(course);
 		checkBox.setChecked(course.isChecked());
 		textView.setText(course.getName());
+		clist.get(position).setCBView(checkBox);
 		return convertView;
 	}
+
 }

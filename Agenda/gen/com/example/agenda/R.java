@@ -92,6 +92,7 @@ public final class R {
         public static final int TargetSummary=0x7f05000d;
         public static final int TargetTitle=0x7f05000e;
         public static final int action_settings=0x7f050001;
+        public static final int addCourse=0x7f050014;
         public static final int app_name=0x7f050000;
         public static final int close=0x7f05000b;
         public static final int courses=0x7f050002;

@@ -101,7 +101,8 @@ public class ITCutiesReaderAppActivity extends Activity {
     private class MyAdapter extends ArrayAdapter<RssItem> {
 
     	private Context c;
-    	private int id;
+    	@SuppressWarnings("unused")
+		private int id;
     	private List<RssItem>items;
     	private Set<String> mySet;
 

@@ -3,6 +3,8 @@ package com.example.scedule;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -53,11 +55,26 @@ public class Schedule extends ExpandableListActivity {
 	SharedPreferences sharedPref;
 	SharedPreferences.Editor prefEditor;
 	Set<String> set;
+	SimpleExpandableListAdapter expListAdapter;
+	List<ArrayList<HashMap<String, String>>> resultC;
 	
-	 
+	// Sort courses per start hour
+	private class SortCoursesHour implements Comparator<HashMap<String, String>>{
 
+		@Override
+		public int compare(HashMap<String, String> lh,HashMap<String, String> rh) {
+			String lhs = lh.get("Course");
+			String rhs = rh.get("Course");
+			int c1 = lhs.indexOf('-');
+	    	int c2 = rhs.indexOf('-');
+	    	String lhsN = lhs.substring(0, c1);
+	    	String rhsN = rhs.substring(0,c2);
+	        return Integer.valueOf(lhsN) - Integer.valueOf(rhsN);
+		}
+
+	}
+	
     public void onCreate(Bundle savedInstanceState) {
-Log.i("OnCREATE", "YOHOOOO");
         try{
              super.onCreate(savedInstanceState);
              setContentView(R.layout.activity_schedule_courses);
@@ -97,14 +114,15 @@ Log.i("GETSCHEDULE",html);
 
     		}
     		
-            SimpleExpandableListAdapter expListAdapter =
+    		resultC = createChildList();
+            expListAdapter =
            		 new SimpleExpandableListAdapter(
            				 this,
            				 createGroupList(),              // Creating group List.
            				 R.layout.group_row,             // Group item layout XML.
            				 new String[] { "Days" },  // the key of group item.
            				 new int[] { R.id.row_name },    // ID of each group item.-Data under the key goes into this TextView.
-           				 createChildList(),              // childData describes second-level entries.
+           				 resultC,              // childData describes second-level entries.
            				 R.layout.child_row,             // Layout for sub-level entries(second level).
            				 new String[] {"Course"},      // Keys in childData maps to display.
            				 new int[] { R.id.grp_child}     // Data under the keys above go into these TextViews.
@@ -127,21 +145,6 @@ Log.i("GETSCHEDULE",html);
         return (List<HashMap<String, String>>)result;
     }
 
-    /*
-private List createChildListV() {
-	ArrayList result = new ArrayList();
-	for( int i = 0 ; i < 5 ; ++i ) { 
-		ArrayList secList = new ArrayList();
-        for( int n = 0 ; n < 3 ; n++ ) {
-        	HashMap child = new HashMap();
-        	child.put( "Sub Item", "Item " + n );
-        	secList.add( child );
-        }
-        result.add( secList );
-    }
-	return result;
-}
-*/
     
     /* creating the HashMap for the children */
     private List<ArrayList<HashMap<String, String>>> createChildList() {
@@ -164,7 +167,7 @@ Log.i("BULLSHITTING", "MALAKIES");
 Log.i("BULLSHITTING__2", "MALAKIES");
     		ArrayList<HashMap<String, String>> MonL = new ArrayList<HashMap<String, String>>();
     		ArrayList<HashMap<String, String>> TueL = new ArrayList<HashMap<String, String>>();
-    		ArrayList<HashMap<String, String>> WenL = new ArrayList<HashMap<String, String>>();
+    		ArrayList<HashMap<String, String>> WedL = new ArrayList<HashMap<String, String>>();
     		ArrayList<HashMap<String, String>> ThuL = new ArrayList<HashMap<String, String>>();
     		ArrayList<HashMap<String, String>> FriL = new ArrayList<HashMap<String, String>>();
     	
@@ -177,7 +180,6 @@ Log.i("BULLSHITTING__2", "MALAKIES");
     			Cursor c = db.execQuery(query);
 Log.i("SCHEDULE_CREATE_LIST",les + "\n" + query + "\n" + c.getCount());
     			if (c.moveToFirst()) {
-Log.i("CURSOR", c.getString(0) + "   " + c.getString(1) + "   " + c.getString(2) + "   " + les);   				
     				do {
     					HashMap<String, String> courseMap = new HashMap<String, String>();
     					ArrayList<HashMap<String, String>> array = null;
@@ -186,7 +188,7 @@ Log.i("CURSOR", c.getString(0) + "   " + c.getString(1) + "   " + c.getString(2)
     					else if("Τρίτη".equals(c.getString(0)))
     						array = TueL;
     					else if("Τετάρτη".equals(c.getString(0)))
-    						array = WenL;
+    						array = WedL;
     					else if("Πέμπτη".equals(c.getString(0)))
     						array = ThuL;
     					else if("Παρασκευή".equals(c.getString(0)))
@@ -202,44 +204,47 @@ Log.i("CURSOR", c.getString(0) + "   " + c.getString(1) + "   " + c.getString(2)
     			courseMap.put("Course","No course has been added for this day");
     			MonL.add(courseMap);
     		}
+    		else
+    			Collections.sort(MonL, new SortCoursesHour() );
     		if(TueL.isEmpty()){
     			HashMap<String, String> courseMap = new HashMap<String, String>();
     			courseMap.put("Course","No course has been added for this day");
     			TueL.add(courseMap);
     		}
-    		if(WenL.isEmpty()){
+    		else
+    			Collections.sort(TueL, new SortCoursesHour() );
+    		if(WedL.isEmpty()){
     			HashMap<String, String> courseMap = new HashMap<String, String>();
     			courseMap.put("Course","No course has been added for this day");
-    			WenL.add(courseMap);
+    			WedL.add(courseMap);
     		}
+    		else
+    			Collections.sort(WedL, new SortCoursesHour() );
     		if(ThuL.isEmpty()){
     			HashMap<String, String> courseMap = new HashMap<String, String>();
     			courseMap.put("Course","No course has been added for this day");
     			ThuL.add(courseMap);
     		}
+    		else
+    			Collections.sort(ThuL, new SortCoursesHour() );
     		if(FriL.isEmpty()){
     			HashMap<String, String> courseMap = new HashMap<String, String>();
     			courseMap.put("Course","No course has been added for this day");
     			FriL.add(courseMap);
     		}
+    		else
+    			Collections.sort(FriL, new SortCoursesHour() );
     			
     		result.add(MonL);
     		result.add(TueL);
     		result.add(ThuL);
-    		result.add(WenL);
+    		result.add(WedL);
     		result.add(FriL);
     	}
 
         return result;
     }
     
-    /*
-     public void  onContentChanged  () {
-     
-        System.out.println("onContentChanged");
-        super.onContentChanged();
-    }
-    */
     
     /* This function is called on each child click */
     public boolean onChildClick( ExpandableListView parent, View v, int groupPosition,int childPosition,long id) {
@@ -316,6 +321,73 @@ System.out.println(html);
 		return (super.onOptionsItemSelected(item));
 	}
 	
+	private void addToAdapter(String CName){
+    	String query = "SELECT " + db.getKeyDay() + ", " + db.getKeyHour() + ", " + db.getKeyClass() + " FROM " + db.getTableScourses()+ " WHERE " + db.getKeyName() + "=" + "\"" + CName + "\"";
+    	Cursor c = db.execQuery(query);
+    	HashMap<String, String> emptyMap = new HashMap<String, String>();
+    	HashMap<String, String> emptyMap2 = new HashMap<String, String>();
+    	
+    	emptyMap.put("Course", "No course has been added for this day");
+    	emptyMap2.put("Course", "Add course to schedule.." );
+    	if (c.moveToFirst()) {
+    		do {
+    			HashMap<String, String> courseMap = new HashMap<String, String>();
+    			ArrayList<HashMap<String, String>> array = null;
+    			
+    			courseMap.put("Course", c.getString(1) + "   " + CName + "   " + c.getString(2));
+        		if("Δευτέρα".equals(c.getString(0)) )
+    				array = resultC.get(0);
+    			else if("Τρίτη".equals(c.getString(0))){			
+    				array = resultC.get(1);
+    			}
+    			else if("Τετάρτη".equals(c.getString(0))){
+    				array = resultC.get(2);
+    			}
+    			else if("Πέμπτη".equals(c.getString(0)))
+    				array = resultC.get(3);
+    			else if("Παρασκευή".equals(c.getString(0)))
+    				array = resultC.get(4);
+        		
+        		if(array.contains(emptyMap))
+        			array.remove(emptyMap);
+        		else if(array.contains(emptyMap2))
+        			array.remove(emptyMap2);
+        		array.add(courseMap);
+    		}while(c.moveToNext());
+    		c.close();
+    	}
+    }
+    
+    private void removeFromAdapter(String CName){
+    	String query = "SELECT " + db.getKeyDay() + ", " + db.getKeyHour() + ", " + db.getKeyClass() + " FROM " + db.getTableScourses()+ " WHERE " + db.getKeyName() + "=" + "\"" + CName + "\"";
+    	Cursor c = db.execQuery(query);
+    	if (c.moveToFirst()) {
+    		do {
+    			HashMap<String, String> courseMap = new HashMap<String, String>();
+    			ArrayList<HashMap<String, String>> array = null;
+    			
+    			courseMap.put("Course", c.getString(1) + "   " + CName + "   " + c.getString(2));
+        		if("Δευτέρα".equals(c.getString(0)) )
+    				array = resultC.get(0);
+    			else if("Τρίτη".equals(c.getString(0)))
+    				array = resultC.get(1);
+    			else if("Τετάρτη".equals(c.getString(0)))
+    				array = resultC.get(2);
+    			else if("Πέμπτη".equals(c.getString(0)))
+    				array = resultC.get(3);
+    			else if("Παρασκευή".equals(c.getString(0)))
+    				array = resultC.get(4);
+        		array.remove(courseMap);
+        		if(array.isEmpty()){
+        			HashMap<String, String> cMap = new HashMap<String, String>();
+        			cMap.put("Course", "No course has been added for this day");
+        			array.add(cMap);
+        		}
+    		}while(c.moveToNext());
+    		c.close();
+    	}
+    }
+	
 	private void add() {
 		ArrayList<ScheduleCourseItem> subjects = db.selectSubjects();
 		final CharSequence[] subs = new CharSequence[subjects.size()];
@@ -340,10 +412,14 @@ System.out.println(html);
 						.setMultiChoiceItems(subs, selected, new DialogInterface.OnMultiChoiceClickListener() {
 			                		@Override
 			                		public void onClick(DialogInterface dialog, int which,boolean isChecked) {			            
-			                			if(isChecked)
+			                			if(isChecked){
 		                					set.add(subs[which].toString());
-			                			else if(set.contains(subs[which].toString()))
+		                					addToAdapter(subs[which].toString());
+			                			}
+			                			else if(set.contains(subs[which].toString())){
 			                				set.remove(subs[which].toString());
+			                				removeFromAdapter(subs[which].toString());
+			                			}
 			                		}
 								}
 						)
@@ -354,11 +430,13 @@ System.out.println(html);
 				            	SharedPreferences.Editor prefEditor = sharedPref.edit();
 				        		prefEditor.putStringSet("CoursesChecked", set);
 				        		prefEditor.commit();
+				        		for(int i=0;i<5;i++)
+				        			Collections.sort(resultC.get(i),new SortCoursesHour());
+				        		expListAdapter.notifyDataSetChanged();
 				            }
 				        })
 					   .create()
 					   .show();
 	}
 	
-
 }

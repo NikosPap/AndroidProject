@@ -5,7 +5,9 @@
     android:layout_height="wrap_content">
  
     <TextView android:id="@+id/grp_child"
-         android:paddingLeft="50dp"
+         android:textIsSelectable="true"
+         android:ellipsize="end"
+		 android:singleLine="true"
          android:focusable="false"
          android:textSize="14sp"
          android:textStyle="normal"

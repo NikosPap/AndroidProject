@@ -26,5 +26,6 @@
     <string name="title_activity_tab2_fragment">Tab2Fragment</string>
     <string name="title_activity_tab3_fragment">Tab3Fragment</string>
     <string name="title_activity_tabs_fragment">TabsFragmentActivity</string>
+    <string name="addCourse">Add</string>
 
 </resources>
