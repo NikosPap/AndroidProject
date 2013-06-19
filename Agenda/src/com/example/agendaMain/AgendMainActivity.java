@@ -10,6 +10,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.GridView;
 
 
 public class AgendMainActivity extends Activity {
@@ -17,13 +20,30 @@ public class AgendMainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_agenda_main);
+		//setContentView(R.layout.activity_agenda_main);
+		setContentView(R.layout.activity_agenda_main_grid);
+		GridView gridview = (GridView) findViewById(R.id.gridview);
+	    gridview.setAdapter(new GridMainAdapter(this));
+
+	    gridview.setOnItemClickListener(new OnItemClickListener() {
+	        public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+	            if(position == 0)
+	            	showCourses(v);
+	            else if(position == 1)
+	            	showSchedule(v);
+	            else if(position == 2)
+	            	showProfile(v);
+	            else
+	            	showNews(v);
+	        }
+	    });
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.agend_main, menu);
+
 		return true;
 	}
 	

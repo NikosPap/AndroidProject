@@ -36,42 +36,48 @@ public final class R {
         public static final int rss=0x7f020008;
     }
     public static final class id {
-        public static final int CheckBox01=0x7f090007;
-        public static final int action_settings=0x7f09000d;
-        public static final int add=0x7f09000e;
+        public static final int CheckBox01=0x7f09000b;
+        public static final int action_settings=0x7f090011;
+        public static final int add=0x7f090012;
         public static final int button1=0x7f090000;
         public static final int button2=0x7f090001;
         public static final int button3=0x7f090002;
         public static final int button4=0x7f090003;
-        public static final int date=0x7f09000c;
-        public static final int grp_child=0x7f090005;
-        public static final int list=0x7f090004;
-        public static final int name_entry=0x7f090009;
+        public static final int date=0x7f090010;
+        public static final int grid_item_image=0x7f090005;
+        public static final int grid_item_label=0x7f090006;
+        public static final int gridview=0x7f090004;
+        public static final int grp_child=0x7f090009;
+        public static final int label=0x7f090007;
+        public static final int list=0x7f090008;
+        public static final int name_entry=0x7f09000d;
         public static final int realtabcontent=0x01010000;
-        public static final int rowTextView=0x7f090006;
-        public static final int row_name=0x7f090008;
-        public static final int thumbnail=0x7f09000a;
-        public static final int title=0x7f09000b;
+        public static final int rowTextView=0x7f09000a;
+        public static final int row_name=0x7f09000c;
+        public static final int thumbnail=0x7f09000e;
+        public static final int title=0x7f09000f;
     }
     public static final class layout {
         public static final int activity_agenda_main=0x7f030000;
-        public static final int activity_display_news=0x7f030001;
-        public static final int activity_display_profile=0x7f030002;
-        public static final int activity_main=0x7f030003;
-        public static final int activity_schedule_courses=0x7f030004;
-        public static final int child_row=0x7f030005;
-        public static final int course_dialog=0x7f030006;
-        public static final int course_row=0x7f030007;
-        public static final int courses=0x7f030008;
-        public static final int courses_ep=0x7f030009;
-        public static final int courses_k=0x7f03000a;
-        public static final int courses_th=0x7f03000b;
-        public static final int courses_ys=0x7f03000c;
-        public static final int gradient=0x7f03000d;
-        public static final int gradient_hover=0x7f03000e;
-        public static final int group_row=0x7f03000f;
-        public static final int list_entry=0x7f030010;
-        public static final int list_row=0x7f030011;
+        public static final int activity_agenda_main_grid=0x7f030001;
+        public static final int activity_agenda_main_grid2=0x7f030002;
+        public static final int activity_display_news=0x7f030003;
+        public static final int activity_display_profile=0x7f030004;
+        public static final int activity_main=0x7f030005;
+        public static final int activity_schedule_courses=0x7f030006;
+        public static final int child_row=0x7f030007;
+        public static final int course_dialog=0x7f030008;
+        public static final int course_row=0x7f030009;
+        public static final int courses=0x7f03000a;
+        public static final int courses_ep=0x7f03000b;
+        public static final int courses_k=0x7f03000c;
+        public static final int courses_th=0x7f03000d;
+        public static final int courses_ys=0x7f03000e;
+        public static final int gradient=0x7f03000f;
+        public static final int gradient_hover=0x7f030010;
+        public static final int group_row=0x7f030011;
+        public static final int list_entry=0x7f030012;
+        public static final int list_row=0x7f030013;
     }
     public static final class menu {
         public static final int account=0x7f080000;
