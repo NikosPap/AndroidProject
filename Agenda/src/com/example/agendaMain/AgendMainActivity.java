@@ -5,12 +5,14 @@ import com.example.agenda.R;
 import com.example.courses.Courses;
 import com.example.scedule.Schedule;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 
@@ -20,6 +22,13 @@ public class AgendMainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		ActionBar bar = getActionBar();
+        TextView bv = new TextView(AgendMainActivity.this);
+        bv.setTextSize(18);
+        bar.setCustomView(bv);
+        bar.setBackgroundDrawable(getResources().getDrawable(R.drawable.bd1));
+		
 		//setContentView(R.layout.activity_agenda_main);
 		setContentView(R.layout.activity_agenda_main_grid);
 		GridView gridview = (GridView) findViewById(R.id.gridview);

@@ -3,18 +3,23 @@ package com.example.courses;
 import java.io.IOException;
 import java.util.HashMap;
 
+import android.app.ActionBar;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TabHost;
+import android.widget.TextView;
 import android.widget.TabHost.TabContentFactory;
 
 import com.example.agenda.R;
+import com.example.agendaMain.AgendMainActivity;
 import com.itcuties.android.reader.data.DataBaseHelper;
 
 /**
@@ -71,6 +76,14 @@ public class Courses extends FragmentActivity implements TabHost.OnTabChangeList
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
+		//set back button
+        ActionBar bar = getActionBar();
+        bar.setDisplayHomeAsUpEnabled(true);
+        TextView bv = new TextView(Courses.this);
+        bv.setTextSize(18);
+        bar.setCustomView(bv);
+        bar.setBackgroundDrawable(getResources().getDrawable(R.drawable.bd1));
+		
 		// Step 1: Inflmate layout
 		setContentView(R.layout.courses);
 		
@@ -87,6 +100,13 @@ public class Courses extends FragmentActivity implements TabHost.OnTabChangeList
         	throw new Error("Unable to create database");
         }
 	}
+	
+	@Override
+    public boolean onOptionsItemSelected(MenuItem menuItem){   
+        startActivity(new Intent(this,AgendMainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                | Intent.FLAG_ACTIVITY_SINGLE_TOP));
+        return true;
+    }
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

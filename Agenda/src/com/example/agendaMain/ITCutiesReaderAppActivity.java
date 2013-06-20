@@ -58,6 +58,7 @@ public class ITCutiesReaderAppActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
         //set back button
         ActionBar bar = getActionBar();
         bar.setDisplayHomeAsUpEnabled(true);
@@ -66,6 +67,7 @@ public class ITCutiesReaderAppActivity extends Activity {
         bar.setCustomView(bv);
         bar.setBackgroundDrawable(getResources().getDrawable(R.drawable.bd1));
         //getActionBar().setDisplayShowTitleEnabled(false);
+        
         // Set view
         setContentView(R.layout.activity_display_news);
 

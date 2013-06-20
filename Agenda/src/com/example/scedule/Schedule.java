@@ -1,7 +1,6 @@
 package com.example.scedule;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
@@ -11,22 +10,27 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.ExpandableListActivity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.SimpleExpandableListAdapter;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.agenda.R;
-//import android.app.Activity;
+import com.example.agendaMain.AgendMainActivity;
 import com.example.agendaMain.ITCutiesReaderAppActivity;
 
 
@@ -77,13 +81,18 @@ public class Schedule extends ExpandableListActivity {
     public void onCreate(Bundle savedInstanceState) {
         try{
              super.onCreate(savedInstanceState);
+             
+             //set back button
+             ActionBar bar = getActionBar();
+             bar.setDisplayHomeAsUpEnabled(true);
+             TextView bv = new TextView(Schedule.this);
+             bv.setTextSize(18);
+             bar.setCustomView(bv);
+             bar.setBackgroundDrawable(getResources().getDrawable(R.drawable.bd1));
+             
              setContentView(R.layout.activity_schedule_courses);
              db = new C_DatabaseHandler(this);
             
-            String[] selections = {"selection1","Selection2"};
-    		Set<String> selectionSet = new HashSet<String>();
-    		selectionSet.addAll(Arrays.asList(selections));
-    		        		
     		String preFile = ITCutiesReaderAppActivity.PREFS_NAME;
     		//Retrieve shared preferences
             sharedPref = getSharedPreferences(preFile, 0);
@@ -193,7 +202,7 @@ Log.i("SCHEDULE_CREATE_LIST",les + "\n" + query + "\n" + c.getCount());
     						array = ThuL;
     					else if("Παρασκευή".equals(c.getString(0)))
     						array = FriL;
-    					courseMap.put("Course", c.getString(1) + "   " +les + "   " + c.getString(2));
+    					courseMap.put("Course", c.getString(1) + ": " +les + " - " + c.getString(2));
     					array.add(courseMap);
     				} while (c.moveToNext());
     			}
@@ -248,7 +257,12 @@ Log.i("SCHEDULE_CREATE_LIST",les + "\n" + query + "\n" + c.getCount());
     
     /* This function is called on each child click */
     public boolean onChildClick( ExpandableListView parent, View v, int groupPosition,int childPosition,long id) {
-        System.out.println("Inside onChildClick at groupPosition = " + groupPosition +" Child clicked at position " + childPosition);
+    	TextView tx = (TextView) v.findViewById(R.id.grp_child);
+    	int[] location = {0,0};
+    	tx.getLocationOnScreen(location);
+    	Toast toa = Toast.makeText(this, tx.getText(), Toast.LENGTH_LONG);
+    	toa.setGravity(Gravity.TOP, 0, location[1]);
+    	toa.show();
         return true;
     }
  
@@ -303,6 +317,7 @@ System.out.println(html);
 	}
 
 
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		new MenuInflater(this).inflate(R.menu.option_scedule,menu);
@@ -315,6 +330,11 @@ System.out.println(html);
 		switch (item.getItemId()) {
 		case R.id.add:
 			add();
+			break;
+		default:
+			startActivity(new Intent(this,AgendMainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+	                | Intent.FLAG_ACTIVITY_SINGLE_TOP));
+			
 			return (true);
 		}
 
@@ -334,7 +354,7 @@ System.out.println(html);
     			HashMap<String, String> courseMap = new HashMap<String, String>();
     			ArrayList<HashMap<String, String>> array = null;
     			
-    			courseMap.put("Course", c.getString(1) + "   " + CName + "   " + c.getString(2));
+    			courseMap.put("Course", c.getString(1) + ": " + CName + " - " + c.getString(2));
         		if("Δευτέρα".equals(c.getString(0)) )
     				array = resultC.get(0);
     			else if("Τρίτη".equals(c.getString(0))){			
@@ -366,7 +386,7 @@ System.out.println(html);
     			HashMap<String, String> courseMap = new HashMap<String, String>();
     			ArrayList<HashMap<String, String>> array = null;
     			
-    			courseMap.put("Course", c.getString(1) + "   " + CName + "   " + c.getString(2));
+    			courseMap.put("Course", c.getString(1) + ": " + CName + " - " + c.getString(2));
         		if("Δευτέρα".equals(c.getString(0)) )
     				array = resultC.get(0);
     			else if("Τρίτη".equals(c.getString(0)))
@@ -437,6 +457,5 @@ System.out.println(html);
 				        })
 					   .create()
 					   .show();
-	}
-	
+	}	
 }
