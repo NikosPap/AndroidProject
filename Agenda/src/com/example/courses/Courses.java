@@ -20,7 +20,6 @@ import android.widget.TabHost.TabContentFactory;
 
 import com.example.agenda.R;
 import com.example.agendaMain.AgendMainActivity;
-import com.itcuties.android.reader.data.DataBaseHelper;
 
 /**
  * @author mwho
@@ -93,7 +92,7 @@ public class Courses extends FragmentActivity implements TabHost.OnTabChangeList
             mTabHost.setCurrentTabByTag(savedInstanceState.getString("tab")); //set the tab as per the saved state
         }
 		
-		DataBaseHelper myDbHelper = new DataBaseHelper(this);
+		CoursesDataBaseHelper myDbHelper = new CoursesDataBaseHelper(this);
         try { 
         	myDbHelper.createDataBase();
         } catch (IOException ioe) {
@@ -137,6 +136,8 @@ public class Courses extends FragmentActivity implements TabHost.OnTabChangeList
         Courses.addTab(this, this.mTabHost, this.mTabHost.newTabSpec("T3").setIndicator("ус"), ( tabInfo = new TabInfo("T3", Fragment3_Ys.class, args)));
         this.mapTabInfo.put(tabInfo.tag, tabInfo);
         Courses.addTab(this, this.mTabHost, this.mTabHost.newTabSpec("T4").setIndicator("еп"), ( tabInfo = new TabInfo("T4", Fragment4_Ep.class, args)));
+        this.mapTabInfo.put(tabInfo.tag, tabInfo);
+        Courses.addTab(this, this.mTabHost, this.mTabHost.newTabSpec("T5").setIndicator("цп-ек"), ( tabInfo = new TabInfo("T5", Fragment5_Gp_El.class, args)));
         this.mapTabInfo.put(tabInfo.tag, tabInfo);
         
         // Default to first tab

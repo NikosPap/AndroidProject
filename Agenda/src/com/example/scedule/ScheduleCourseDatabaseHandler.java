@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-public class C_DatabaseHandler extends SQLiteOpenHelper {
+public class ScheduleCourseDatabaseHandler extends SQLiteOpenHelper {
 	 
     // All Static variables
     // Database Version
@@ -28,7 +28,7 @@ public class C_DatabaseHandler extends SQLiteOpenHelper {
 	private static final String KEY_HOUR = "hour";
     private static final String KEY_CLASS = "class";
  
-    public C_DatabaseHandler(Context context) {
+    public ScheduleCourseDatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
  
@@ -99,7 +99,7 @@ Log.i("C_DATABASEHANDLER","DatabaseNotExist");
 	
 	
 	// Adding new scheduled course
-	public void addSCourse(DatabaseCourse course) {
+	public void addSCourse(ScheduleCourseDatabaseItem course) {
 	    SQLiteDatabase db = this.getWritableDatabase();
 	 
 	    ContentValues values = new ContentValues();

@@ -1,6 +1,6 @@
 package com.example.scedule;
 
-public class DatabaseCourse {
+public class ScheduleCourseDatabaseItem {
     
     //private variables
     String _day;
@@ -10,7 +10,7 @@ public class DatabaseCourse {
      
 
     // constructor
-    public DatabaseCourse(String day, String hour, String name, String cl){
+    public ScheduleCourseDatabaseItem(String day, String hour, String name, String cl){
         this._day = day;
         this._hour = hour;
         this._name = name;

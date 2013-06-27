@@ -1,4 +1,4 @@
-package com.itcuties.android.reader.data;
+package com.example.news;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

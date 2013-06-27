@@ -1,4 +1,4 @@
-package com.itcuties.android.reader.listeners;
+package com.example.news;
 
 
 import java.util.List;
@@ -15,7 +15,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
-import com.itcuties.android.reader.data.RssItem;
+
 
 /**
  * Class implements a list listener
@@ -24,7 +24,7 @@ import com.itcuties.android.reader.data.RssItem;
  *
  */
 @SuppressLint("NewApi")
-public class ListListener implements OnItemClickListener{
+public class NewsListListener implements OnItemClickListener{
 
 	public static final String PUB_DESCR_LINK_MES = null;
 	// List item's reference
@@ -33,7 +33,7 @@ public class ListListener implements OnItemClickListener{
 	Activity activity;
 	
 	
-	public ListListener(List<RssItem> aListItems, Activity anActivity) {
+	public NewsListListener(List<RssItem> aListItems, Activity anActivity) {
 		listItems = aListItems;
 		activity  = anActivity;
 	}

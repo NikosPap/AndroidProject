@@ -1,4 +1,4 @@
-package com.itcuties.android.reader.util;
+package com.example.news;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,8 +16,6 @@ import org.xml.sax.Attributes;
 //import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import com.itcuties.android.reader.data.RssFeed;
-import com.itcuties.android.reader.data.RssItem;
 
 /**
  * SAX tag handler

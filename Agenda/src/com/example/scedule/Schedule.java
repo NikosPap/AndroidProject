@@ -31,20 +31,20 @@ import android.widget.Toast;
 
 import com.example.agenda.R;
 import com.example.agendaMain.AgendMainActivity;
-import com.example.agendaMain.ITCutiesReaderAppActivity;
+import com.example.news.ITCutiesReaderAppActivity;
 
 
 class Course {
-    private ArrayList<DatabaseCourse> data;
+    private ArrayList<ScheduleCourseDatabaseItem> data;
 
     public Course(){
-    	this.data = new ArrayList<DatabaseCourse>();
+    	this.data = new ArrayList<ScheduleCourseDatabaseItem>();
     }
     
     /**
      * @return the data
      */
-    public ArrayList<DatabaseCourse> getData() {
+    public ArrayList<ScheduleCourseDatabaseItem> getData() {
         return data;
     }
 }
@@ -54,7 +54,7 @@ class Course {
 
 @SuppressLint("NewApi")
 public class Schedule extends ExpandableListActivity {
-	C_DatabaseHandler db;
+	ScheduleCourseDatabaseHandler db;
 	String Semester;
 	SharedPreferences sharedPref;
 	SharedPreferences.Editor prefEditor;
@@ -91,7 +91,7 @@ public class Schedule extends ExpandableListActivity {
              bar.setBackgroundDrawable(getResources().getDrawable(R.drawable.bd1));
              
              setContentView(R.layout.activity_schedule_courses);
-             db = new C_DatabaseHandler(this);
+             db = new ScheduleCourseDatabaseHandler(this);
             
     		String preFile = ITCutiesReaderAppActivity.PREFS_NAME;
     		//Retrieve shared preferences
@@ -117,6 +117,15 @@ public class Schedule extends ExpandableListActivity {
 Log.i("GETSCHEDULE",html);
     			GetSemesterSchedule getTask = new GetSemesterSchedule(db,this.getApplicationContext());
         		getTask.execute(html);
+        		
+        		//Remove from schedule courses of previous semester
+            	set = sharedPref.getStringSet("CoursesChecked", null);
+            	if(!set.isEmpty()){
+            		set.clear();
+            		SharedPreferences.Editor prefEditor = sharedPref.edit();
+            		prefEditor.putStringSet("CoursesChecked", set);
+            		prefEditor.commit();
+            	}
     		
         		//Debug the thread name
         		Log.d("GetSchedule", Thread.currentThread().getName());
@@ -159,7 +168,6 @@ Log.i("GETSCHEDULE",html);
     private List<ArrayList<HashMap<String, String>>> createChildList() {
     	ArrayList<ArrayList<HashMap<String, String>>> result = new ArrayList<ArrayList<HashMap<String, String>>>();
     	
-    	//Retrieve selected courses
     	set = sharedPref.getStringSet("CoursesChecked", null);
     	
     	if(set.isEmpty()){

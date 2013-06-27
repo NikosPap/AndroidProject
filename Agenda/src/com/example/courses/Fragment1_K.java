@@ -3,7 +3,6 @@ package com.example.courses;
 import java.util.ArrayList;
 
 import com.example.agenda.R;
-import com.itcuties.android.reader.data.DataBaseHelper;
 
 import android.annotation.SuppressLint;
 import android.database.Cursor;
@@ -23,7 +22,7 @@ import android.widget.ListView;
  */
 @SuppressLint("NewApi")
 public class Fragment1_K extends ListFragment{
-	DataBaseHelper myDbHelper;
+	CoursesDataBaseHelper myDbHelper;
 	String TABLE_NAME = "Subjects";
 	SQLiteDatabase db;
 	ArrayList<CourseItem> subjects;
@@ -36,7 +35,7 @@ public class Fragment1_K extends ListFragment{
 		
 		subjects = new ArrayList<CourseItem>();
 		
-		myDbHelper = new DataBaseHelper(this.getActivity());
+		myDbHelper = new CoursesDataBaseHelper(this.getActivity());
 		myDbHelper.openDataBase();
 		db = myDbHelper.getReadableDatabase();
 		

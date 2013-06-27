@@ -16,11 +16,11 @@ import android.util.Log;
 import android.widget.Toast;
 
 public class GetSemesterSchedule extends AsyncTask<String, Void, Course >{
-	C_DatabaseHandler db;
+	ScheduleCourseDatabaseHandler db;
 	Context context;
 	int error = 0;
 
-	public GetSemesterSchedule(C_DatabaseHandler db, Context con) {
+	public GetSemesterSchedule(ScheduleCourseDatabaseHandler db, Context con) {
 		super();
 		this.db = db;
 		this.context = con;
@@ -78,7 +78,7 @@ public class GetSemesterSchedule extends AsyncTask<String, Void, Course >{
 						if(course.length()!=2){
 //System.out.println(key+ "----" + data1.trim() + "----" + hour + "----" + course.trim() );
 							//c.setData(key, data1.trim(), hour, course.trim());
-							db.addSCourse(new DatabaseCourse(key, hour, course.trim(), data1.trim()));
+							db.addSCourse(new ScheduleCourseDatabaseItem(key, hour, course.trim(), data1.trim()));
 						}
 					}
 					else if(findWholeWord(text,"Αίθουσα")!=-1){

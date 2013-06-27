@@ -1,4 +1,4 @@
-package com.example.agendaMain;
+package com.example.news;
 
 import java.util.HashSet;
 import java.util.List;
@@ -24,9 +24,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.agenda.R;
-import com.itcuties.android.reader.data.RssItem;
-import com.itcuties.android.reader.listeners.ListListener;
-import com.itcuties.android.reader.util.RssReader;
+import com.example.agendaMain.AgendMainActivity;
 
 /**
  * Main application activity.
@@ -214,7 +212,7 @@ public class ITCutiesReaderAppActivity extends Activity {
             itcItems.setAdapter(adapter);
 
             // Set list view item click listener
-            itcItems.setOnItemClickListener(new ListListener(result, local));
+            itcItems.setOnItemClickListener(new NewsListListener(result, local));
         }
     }  
 }

@@ -20,7 +20,8 @@ import android.widget.ListView;
  * @author mwho
  *
  */
-public class Fragment2_Th extends ListFragment {
+@SuppressLint("NewApi")
+public class Fragment5_Gp_El extends ListFragment{
 	CoursesDataBaseHelper myDbHelper;
 	String TABLE_NAME = "Subjects";
 	SQLiteDatabase db;
@@ -29,8 +30,8 @@ public class Fragment2_Th extends ListFragment {
 	
 	@SuppressLint("NewApi")
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {		
-		String select = "SELECT ThP, Name, Description, Grade FROM Subjects WHERE  Code LIKE '»–%' AND Selected=1 ORDER BY Thp ";
-		String select2 = "SELECT ThP, Name, Description FROM Subjects WHERE  Code LIKE '»–%' AND Selected=0 ORDER BY Thp";
+		String select = "SELECT Name, Grade FROM Subjects WHERE  (Code LIKE '√–%' OR Code LIKE '≈À%') AND Selected=1";
+		String select2 = "SELECT Name FROM Subjects WHERE  (Code LIKE '√–%' OR Code LIKE '≈À%') AND Selected=0";
 		
 		subjects = new ArrayList<CourseItem>();
 		
@@ -42,12 +43,7 @@ public class Fragment2_Th extends ListFragment {
 		Cursor cursor = db.rawQuery(select, null);
 		if(cursor.moveToFirst()){
 			do{
-				String name = cursor.getString(1);
-				if(cursor.getInt(0)==1)
-					name += " (B)";
-				else
-					name += " (E)";
-				subjects.add(new CourseItem(name,true,cursor.getString(2),cursor.getDouble(3)));
+				subjects.add(new CourseItem(cursor.getString(0),true,"No description available",cursor.getDouble(1)));
 			}while(cursor.moveToNext());
 		}
 		cursor.close();
@@ -56,12 +52,7 @@ public class Fragment2_Th extends ListFragment {
 		Cursor cursor2 = db.rawQuery(select2, null);
 		if(cursor2.moveToFirst()){
 			do{
-				String name = cursor2.getString(1);
-				if(cursor2.getInt(0)==1)
-					name += " (B)";
-				else
-					name += " (E)";
-				subjects.add(new CourseItem(name,false,cursor2.getString(2)));
+				subjects.add(new CourseItem(cursor2.getString(0),false,"No description available"));
 			}while(cursor2.moveToNext());
 		}
 		cursor2.close();
@@ -71,13 +62,13 @@ public class Fragment2_Th extends ListFragment {
 		setListAdapter(mAdapter);
 		
 		
-		//View view = inflater.inflate(R.layout.courses_th, container, false);
+		//View view = inflater.inflate(R.layout.courses_k, container, false);
 		//ListView itcItems = (ListView) view.findViewById(android.R.id.list);
 		//itcItems.setOnItemClickListener(new CourseListListener(subjects,this.getActivity()));
 		if (container == null) {
             return null;
         }
-		return (LinearLayout)inflater.inflate(R.layout.courses_th, container, false);
+		return (LinearLayout)inflater.inflate(R.layout.courses_k, container, false);
 	}
 	
 	@Override
@@ -97,16 +88,16 @@ public class Fragment2_Th extends ListFragment {
 			CourseItem s = subjects.get(i);
 			
 			if(s.isChanged()){
-				String[] name = s.getName().split(" \\(");
 				int sel=0;
 				
 				if(s.isChecked())
 					sel=1;
 				s.setChanged(false);
-				String update = "UPDATE Subjects SET Selected=" + sel + ", Grade="+ s.getGrade() + " WHERE Name=" + "\"" + name[0] +"\"" ;
+				String update = "UPDATE Subjects SET Selected=" + sel + ", Grade="+ s.getGrade() +" WHERE Name=" + "\"" + s.getName() +"\"" ;
 				db.execSQL(update);
 			}
 		}
 		myDbHelper.close();
 	}
 }
+

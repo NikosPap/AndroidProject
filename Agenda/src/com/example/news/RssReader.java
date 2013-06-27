@@ -1,12 +1,10 @@
-package com.itcuties.android.reader.util;
+package com.example.news;
 
 import java.util.List;
 
 //import javax.xml.parsers.SAXParser;
 //import javax.xml.parsers.SAXParserFactory;
 
-import com.itcuties.android.reader.data.RssFeed;
-import com.itcuties.android.reader.data.RssItem;
 
 /**
  * Class reads RSS data.

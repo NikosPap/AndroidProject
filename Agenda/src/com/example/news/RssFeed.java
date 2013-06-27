@@ -1,8 +1,9 @@
-package com.itcuties.android.reader.data;
+package com.example.news;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 
 public class RssFeed 
     { 
